@@ -1,0 +1,99 @@
+\clearpage
+\chapter{MATLAB Problem 1.3}
+
+\begin{figure}[ht!]
+ \centering
+ \includegraphics[width=16cm]{./plots/waterfall.png}
+ % waterfall.png: 1400x920 pixel, 90dpi, 39.51x25.97 cm, bb=0 0 1120 736
+ \caption{Wasserfall Darstellung der Impulsantwort}
+ \label{fig:waterfall}
+\end{figure}
+
+\subsection{(c) Adaptiver Filter ohne Rauschen}
+
+In der Abbildung \ref{fig:c_20} bzw. \ref{fig:c_50} wurden die Koeffizienten
+des ``unbekannten'' Systems mit den Koeffizienten des Adaptiven Systems verglichen.
+
+Dabei kann man erkennen, dass bei einem größerem M das unbekannte System besser angenähert werden kann.
+Die Koeffizienten haben wie in den Abbildungen ersichtlich eine kleinere Varianz. Das ganze ist natürlich
+logisch, da längere Blöcke verarbeitet werden.
+
+Nachteil eines größeren M ist ein etwas größerer Berechnungsaufwand.
+Ein weiterer Nachteil welcher zwar hier nicht ersichtlich ist, dass die Filterkoeffizienten
+bei schnelleren Änderungen von $\textbf{h}[n]$ nicht mitkommen.
+
+\subsection{(d) Adaptiver Filter mit Weißem Rauschen}
+In den Abbildungen \ref{fig:d_20} bzw. \ref{fig:d_50} ist zu erkennen, dass das Hinzufügen von
+Weißem Rauschen keinen wesentlichen Unterschied bringt. Die Abweichung von den idealen
+Koeffizienten ist natürlich etwas größer.
+
+\subsection{(e) Adaptiver Filter mit vom Eingang abhängigem $\nu[n]$}
+In den Abbildungen \ref{fig:e_20} bzw. \ref{fig:e_50} ist zu erkennen,
+dass die durch das Adaptive Filter angenäherten Koeffizienten einen Offset zu den idealen Koeffizienten haben.
+Dies liegt daran, dass $\nu[n]$ abhängig vom Eingang $x[n]$ ist.
+
+Betrachtet man die Gleichung:
+\begin{equation}
+ \nu[n] = 1/2 \cdot (x[n] + x[n-1])
+\end{equation}
+
+so fällt auf, dass $\nu[n]$ aus einem Filter mit den Koeffizienten $[0.5;0.5;0]$ aus $x[n]$ erzeugt werden kann.
+Dies spiegelt sich auch in den Koeffizienten des Adpativen Filters wieder. Somit lässt sich der
+``Offset'' der Koeffizienten in den Abbildungen \ref{fig:e_20} bzw. \ref{fig:e_50} erklären.
+
+
+
+
+
+
+
+\newpage
+
+\begin{figure}[ht!]
+ \centering
+ \includegraphics[width=13.5cm]{./plots/c_coefficients_M20.png}
+ % waterfall.png: 1400x920 pixel, 90dpi, 39.51x25.97 cm, bb=0 0 1120 736
+ \caption{Koeffizienten des Filters mit M=20, $v[n] = 0$}
+ \label{fig:c_20}
+\end{figure}
+
+\begin{figure}[ht!]
+ \centering
+ \includegraphics[width=13.5cm]{./plots/c_coefficients_M50.png}
+ % waterfall.png: 1400x920 pixel, 90dpi, 39.51x25.97 cm, bb=0 0 1120 736
+ \caption{Koeffizienten des Filters mit M=50, $v[n] = 0$}
+ \label{fig:c_50}
+\end{figure}
+
+
+\begin{figure}[ht!]
+ \centering
+ \includegraphics[width=13.5cm]{./plots/d_coefficients_M20.png}
+ % waterfall.png: 1400x920 pixel, 90dpi, 39.51x25.97 cm, bb=0 0 1120 736
+ \caption{Koeffizienten des Filters mit M=20, $v[n] = $ zero mean white noise with Variance = 0.5}
+ \label{fig:d_20}
+\end{figure}
+
+\begin{figure}[ht!]
+ \centering
+ \includegraphics[width=13.5cm]{./plots/d_coefficients_M50.png}
+ % waterfall.png: 1400x920 pixel, 90dpi, 39.51x25.97 cm, bb=0 0 1120 736
+ \caption{Koeffizienten des Filters mit M=50, $v[n] = $ zero mean white noise with Variance = 0.5}
+ \label{fig:d_50}
+\end{figure}
+
+\begin{figure}[ht!]
+ \centering
+ \includegraphics[width=13.5cm]{./plots/e_coefficients_M20.png}
+ % waterfall.png: 1400x920 pixel, 90dpi, 39.51x25.97 cm, bb=0 0 1120 736
+ \caption{Koeffizienten des Filters mit M=20, $v[n] = 0.5\cdot (x[n] + x[n-1]$}
+ \label{fig:e_20}
+\end{figure}
+
+\begin{figure}[ht!]
+ \centering
+ \includegraphics[width=13.5cm]{./plots/e_coefficients_M50.png}
+ % waterfall.png: 1400x920 pixel, 90dpi, 39.51x25.97 cm, bb=0 0 1120 736
+ \caption{Koeffizienten des Filters mit M=50, $v[n] = 0.5\cdot (x[n] + x[n-1]$}
+ \label{fig:e_50}
+\end{figure}

@@ -1,0 +1,54 @@
+\chapter{Analytic Problem 1.1}
+
+\subsection{(a)}
+Zuerst stellen wir eine Kostenfunktion $J(c)$, wie in den Problem-classes auf.
+
+\begin{equation}
+ J(c) = E\{e[n] \cdot e[n]\}
+\end{equation}
+
+Um das Minimum der Kostenfunktion zu ermitteln, bilden wir den Gradienten mit den Ableitungen nach den
+einzelnen Filterkoeffizienten $\textbf{c}$.
+
+\begin{equation}
+ \bigtriangledown J(c) = E\{\bigtriangledown e[n] \cdot e[n]\}
+ \label{eq:kosten1}
+\end{equation}
+
+Setzt man die Beziehung $e[n] = d[n] - \textbf{c}^T \textbf{x}[n]$ in die Gleichung \ref{eq:kosten1} ein,
+so erhält man:
+
+\begin{equation}
+ \bigtriangledown J(c) = E\{(\bigtriangledown d[n] - \bigtriangledown \textbf{c}^T \textbf{x}[n]) \cdot e[n]\}
+\end{equation}
+
+\begin{equation}
+ \bigtriangledown J(c) = E\{-\textbf{x}[n] \cdot e[n]\}
+\end{equation}
+
+Um nun das Minimum der Kostenfunktion zu erhalten müssen wir diesen Term 0 setzen:
+
+\begin{equation}
+ \bigtriangledown J(c) = E\{-\textbf{x}[n] \cdot e[n]\} \stackrel{!}{=} 0
+ \label{eq:aresult}
+\end{equation}
+
+Hiermit ist ersichtlich, dass jedes $x[n-k]$ orthogonal zu $e[n]$ ist.
+
+
+\subsection{(b)}
+
+Um diese Beziehung herzuleiten verwenden wir die Gleichung \ref{eq:aresult} und multiplizieren
+dise von links mit $\textbf{c}^T$.
+Somit erhalten wir:
+
+\begin{equation}
+ E\{-\textbf{c}^T \textbf{x}[n] \cdot e[n]\} \stackrel{!}{=} 0
+\end{equation}
+
+\begin{equation}
+ E\{-y[n] \cdot e[n]\} \stackrel{!}{=} 0
+\end{equation}
+
+Somit ist auch $y[n]$ orthogonal zu $e[n]$
+
