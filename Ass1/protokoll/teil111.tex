@@ -52,3 +52,27 @@ Somit erhalten wir:
 
 Somit ist auch $y[n]$ orthogonal zu $e[n]$
 
+
+\subsection{(c)}
+
+Um den Wert für die Kostenfunktion bei optimalen Filterkoeffizienten zu berechnen, setzen wir einfach
+die Wiener Hopf Solution in die Gleichung für die Kostenfunktion (Gleichung \ref{eq:kosten2}).
+
+\begin{equation}
+ J(\textbf{c}) = E\{d^2[n] - 2d[n]\textbf{c}^T\textbf{x}[n] + \textbf{c}^T\textbf{x}[n]\textbf{x}^T[n]\}
+\end{equation}
+
+\begin{equation}
+ J(\textbf{c}) = E\{d^2[n]} - 2\textbf{c}^T\textbf{p} + \textbf{c}^T\textbf{R}_{xx}\}
+ \label{eq:kosten2}
+\end{equation}
+
+Somit erhalten wir:
+
+\begin{equation}
+ J(\textbf{c}) = \sigma_d - 2\textbf{p}^T\textbf{R}_{xx}\textbf{p} + \textbf{p}^T\textbf{R}_{xx}\textbf{p}
+\end{equation}
+
+\begin{equation}
+ J(\textbf{c}) = \sigma_d - \textbf{p}^T\textbf{R}_{xx}\textbf{p}
+\end{equation}
