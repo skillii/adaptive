@@ -1,2 +1,293 @@
 \clearpage
 \chapter{Analytic Problem 1.2}
+
+\subsection{(a) Berechnung von $\underline{c}_{MSE}$}
+Zur Bestimmung von $\underline{c}_{MSE}$ muss zuerst eine Kostenfunktion $J(\underline{c})$ aufgestellt werden. Diese wird dann abgeleitet und eine Nullstelle gesucht (Suche nach dem Minimum). Dadurch erhält man $\underline{c}_{MSE}$, bei dem die Abweichung am geringsten ist. $x[n]$ und $\nu [n]$ sind dabei \emph{jointly stationary}.
+
+\begin{equation}
+  d[n] = \underline{h}^T \underline{x}[n] + \nu [n]
+\end{equation}
+
+\begin{equation}
+ e[n] = d[n] - y[n] = \underline{h}^T \underline{x}[n] + \nu [n] - \underline{c}^T \underline{x}[n]
+\end{equation}
+
+Die Kostenfunktion ergibt sich zu:
+\begin{eqnarray}
+ J(\underline{c}) & = & E\{e^2[n]\} = E\{(\underline{h}^T \underline{x}[n] + \nu [n] - \underline{c}^T \underline{x}[n])^2\} \\
+ & = & E\{\underline{h}^T \underline{x}[n] \underline{x}^T[n] \underline{h} + \nu [n] \underline{h}^T \underline{x}[n] - \underbrace{\underline{h}^T \underline{x}[n] \underline{x}^T[n] \underline{c}}_{\underline{c}^T \underline{x}[n] \underline{x}^T[n] \underline{h}} + \nu [n] \underline{h}^T \underline{x}[n] + \nu^2[n] \\
+ & & - \nu [n] \underline{c}^T \underline{x}[n] - \underline{c}^T \underline{x}[n] \underline{x}^T[n] \underline{h} - \nu [n] \underline{c}^T \underline{x}[n] + \underline{c}^T \underline{x}[n] \underline{x}^T[n] \underline{c}\} \\
+ & = & \underline{h}^T \underbrace{E\{\underline{x}[n] \underline{x}^T[n]\}}_{\underline{R}_{xx}} \underline{h} + 2 \underline{h}^T \underbrace{E\{\nu [n] \underline{x}[n]\}}_{0} - 2 \underline{c}^T \underbrace{E\{\underline{x}[n] \underline{x}^T[n]\}}_{\underline{R}_{xx}} \underline{h} + \underbrace{E\{\nu^2[n]\}}_{\sigma_\nu^2} \\
+ & & - 2 \underline{c}^T \underbrace{E\{\nu [n] \underline{x}[n]\}}_{0} + \underline{c}^T \underbrace{E\{\underline{x}[n] \underline{x}^T[n]\}}_{\underline{R}_{xx}} \underline{c} \\
+ & = & \underline{h}^T \underline{R}_{xx} \underline{h} - 2 \underline{c}^T \underline{R}_{xx} \underline{h} + \underline{c}^T \underline{R}_{xx} \underline{c} + \sigma_\mu^2
+\end{eqnarray}
+
+Diese wird abgeleitet:
+\begin{equation}
+ \underline{\bigtriangledown}_{\underline{c}_{MSE}} J(\underline{c}_{MSE}) = 0 - 2 \underline{R}_{xx} \underline{h} + 2 \underline{R}_{xx} \underline{c}_{MSE} + 0 \stackrel{!}{=} 0
+\end{equation}
+
+Daraus ergibt sich:
+\begin{equation}
+ \underline{R}_{xx} \underline{h} = \underline{R}_{xx} \underline{c}_{MSE} \Rightarrow \underline{c}_{MSE} = \underline{h}
+\end{equation}
+
+Vorraussetzung ist dabei, dass $\underline{R}_{xx}^{-1}$ existiert.
+
+\subsection{(b) MMSE}
+
+\begin{equation}
+ J(\underline{c}_{MSE}) = \underline{h}^T \underline{R}_{xx} \underline{h} - 2 \underline{h}^T \underline{R}_{xx} \underline{h} + \underline{h}^T \underline{R}_{xx} \underline{h} + \sigma_\mu^2 = \sigma_\mu^2
+\end{equation}
+
+
+\subsection{(c) Bestimmung von $\underline{c}_{MSE}$ für bekanntes $\underline{h}$}
+
+Bei der Bestimmung von $\underline{c}_{MSE}$ müssen die 3 unterschiedlichen Fälle betrachtet werden: $N<N_h$, $N=N_h$ und $N>N_h$.
+
+
+\subsubsection{N=2}
+
+In diesem Fall muss die Berechnung erneut gemacht werden, diesmal aber mit aufgeteilten Vektoren:
+
+$$ \underline{x}'[n] = \begin{bmatrix} \underline{x}_a[n] \\ \underline{x}_b[n] \end{bmatrix} $$
+
+Die Grösse des Vektors $\underline{x}[n]$ ist $(N_h,1)$, Teilvektor $\underline{x}_a[n]$ ist $(N,1)$, Teilvektor $\underline{x}_b[n]$ ist $(N_h-N,1)$.
+
+\begin{equation}
+  d[n] = \underbrace{\underline{h}^T}_{(1,N_h)} \underbrace{\underline{x}[n]}_{(N_h,1)} + \nu [n]
+\end{equation}
+
+\begin{equation}
+  y[n] = \underbrace{\underline{c}^T}_{(1,N)} \underbrace{\underline{x}_a[n]}_{(N,1)}
+\end{equation}
+
+\begin{equation}
+ e[n] = d[n] - y[n] = \underline{h}^T \underline{x}[n] + \nu [n] - \underline{c}^T \underline{x}_a[n]
+\end{equation}
+
+Man kann jetzt neue Korrelationsmatrizen definieren:
+
+\begin{equation}
+ E\{\underline{x}[n] \underline{x}^T[n]\} = E\{\begin{bmatrix} \underline{x}_a[n] \\ \underline{x}_b[n] \end{bmatrix} \begin{bmatrix} \underline{x}_a[n] & \underline{x}_b[n] \end{bmatrix}\} = E\{\begin{bmatrix} \underline{x}_a[n] \underline{x}_a^T[n] & \underline{x}_a[n] \underline{x}_b^T[n] \\ \underline{x}_b[n] \underline{x}_a^T[n] & \underline{x}_b[n] \underline{x}_b^T[n] \end{bmatrix}\} = \begin{bmatrix} \underline{R}_{aa} & \underline{R}_{ab} \\ \underline{R}_{ba} & \underline{R}_{bb} \end{bmatrix}
+\end{equation}
+
+\begin{equation}
+ E\{\underline{x}[n] \underline{x}_a^T[n]\} = E\{\begin{bmatrix} \underline{x}_a[n] \\ \underline{x}_b[n] \end{bmatrix} \underline{x}_a[n]\} = E\{\begin{bmatrix} \underline{x}_a[n] \underline{x}_a^T[n] \\ \underline{x}_a[n] \underline{x}_a^T[n] \end{bmatrix} \} = \begin{bmatrix} \underline{R}_{aa} \\ \underline{R}_{ba} \end{bmatrix}
+\end{equation}
+
+\begin{equation}
+ E\{\underline{x}_a[n] \underline{x}^T[n]\} = E\{\underline{x}_a[n] \begin{bmatrix} \underline{x}_a^T[n] & \underline{x}_b^T[n] \end{bmatrix}\} = E\{\begin{bmatrix} \underline{x}_a[n] \underline{x}_a^T[n] \\ \underline{x}_a[n] \underline{x}_b^T[n] \end{bmatrix}\} = \begin{bmatrix} \underline{R}_{aa} & \underline{R}_{ab} \end{bmatrix}
+\end{equation}
+
+
+Die Kostenfunktion ergibt sich für dieses Beispiel zu:
+\begin{eqnarray}
+ J(\underline{c}) & = & E\{e^2[n]\} = E\{(\underline{h}^T \underline{x}[n] + \nu [n] - \underline{c}^T \underline{x}_a[n])^2\} \\
+ & = & E\{\underline{h}^T \underline{x}[n] \underline{x}^T[n] \underline{h} + \nu [n] \underline{h}^T \underline{x}[n] - \underbrace{\underline{h}^T \underline{x}[n] \underline{x}_a^T[n] \underline{c}}_{\underline{c}^T \underline{x}_a[n] \underline{x}^T[n] \underline{h}} + \nu [n] \underline{h}^T \underline{x}[n] + \nu^2[n] \\
+ & & - \nu [n] \underline{c}^T \underline{x}_a[n] - \underline{c}^T \underline{x}_a[n] \underline{x}^T[n] \underline{h} - \nu [n] \underline{c}^T \underline{x}_a[n] + \underline{c}^T \underline{x}_a[n] \underline{x}_a^T[n] \underline{c}\} \\
+ & = & \underline{h}^T E\{\underline{x}[n] \underline{x}^T[n]\} \underline{h} + 2 \underline{h}^T \underbrace{E\{\nu [n] \underline{x}[n]\}}_{0} - 2 \underline{c}^T E\{\underline{x}_a[n] \underline{x}^T[n]\} \underline{h} + \underbrace{E\{\nu^2[n]\}}_{\sigma_\nu^2} \\
+ & & - 2 \underline{c}^T \underbrace{E\{\nu [n] \underline{x}_a[n]\}}_{0} + \underline{c}^T E\{\underline{x}_a[n] \underline{x}_a^T[n]\} \underline{c} \\
+ & = & \underline{h}^T \underline{R}_{xx} \underline{h} - 2 \underline{c}^T [ \underline{R}_{aa} \underline{R}_{ab} ] \underline{h} + \underline{c}^T \underline{R}_{aa} \underline{c} + \sigma_\mu^2
+\end{eqnarray}
+
+Die Kostenfunktion wird wieder abgeleitet und 0 gesetzt:
+\begin{equation}
+ \underline{\bigtriangledown}_{\underline{c}_{MSE}} J(\underline{c}_{MSE}) = 0 + 0 - 2 \begin{bmatrix} \underline{R}_{aa} & \underline{R}_{ab} \end{bmatrix} \underline{h} + 2 \underline{R}_{xx} \underline{c}_{MSE} + 0 \stackrel{!}{=} 0
+\end{equation}
+
+Daraus ergibt sich:
+\begin{equation}
+ \begin{bmatrix} \underline{R}_{aa} & \underline{R}_{ab} \end{bmatrix} \begin{bmatrix} \underline{h}_a \\ \underline{h}_b \end{bmatrix} = \underline{R}_{aa} \underline{c}_{MSE} \Rightarrow \underline{c}_{MSE} = \underline{R}_{aa}^{-1} (\underline{R}_{aa} \underline{h}_a + \underline{R}_{ab} \underline{h}_b ) = \underline{h}_a \underline{R}_{aa}^{-1} \underline{R}_{ab} \underline{h}_b )
+\end{equation}
+
+Da $x[n]$ ein \emph{white, zero-mean} Signal ist, gilt $ E\{x[n] x[n-k]\} = 0 \forall k $, d.h. $\underline{R}_{xx}$ ist eine Diagonalmatrix, wobei alle Elemente in der Diagonale den Wert $\sigma_x^2$, also $\underline{R}_{xx} = \underline{I} \sigma_x^2$. Dadurch ergibt sich auch, dass $\underline{R}_{ab} = \underline{R}_{ba} = \underline{0}$. Dadurch ergibt sich:
+
+\begin{equation}
+ \underline{c}_{MSE} = \underline{h}_a \underline{R}_{aa}^{-1} \underline{0} \underline{h}_b = \underline{h}_a = \begin{bmatrix} 1 \\ -1 \end{bmatrix}
+\end{equation}
+
+Der MMSE berechnet sich zu:
+\begin{eqnarray}
+ J(\underline{c}_{MSE}) & = & \underline{h}^T \underline{R}_{xx} \underline{h} - 2 \underline{h}_a^T \begin{bmatrix} \underline{R}_{aa} & \underline{R}_{ab} \end{bmatrix} \underline{h} + \underline{h}_a^T \underline{R}_{aa} \underline{h}_a + \sigma_\mu^2 \\
+ & = & \begin{bmatrix} \underline{h}_a^T & \underline{h}_b^T \end{bmatrix} \begin{bmatrix} \underline{R}_{aa} & \underline{R}_{ab} \\ \underline{R}_{ba} & \underline{R}_{bb} \end{bmatrix} \begin{bmatrix} \underline{h}_a \\ \underline{h}_b \end{bmatrix}  - 2 \underline{h}_a^T \begin{bmatrix} \underline{R}_{aa} & \underline{R}_{ab} \end{bmatrix} \begin{bmatrix} \underline{h}_a \\ \underline{h}_b \end{bmatrix} + \underline{h}_a^T \underline{R}_{aa} \underline{h}_a + \sigma_\mu^2 \\
+ & = & \underline{h}_a^T \underline{R}_{aa} \underline{h}_a + \underline{h}_a^T \underline{R}_{ab} \underline{h}_b + \underline{h}_b^T \underline{R}_{ba} \underline{h}_a + \underline{h}_b^T \underline{R}_{bb} \underline{h}_b - 2 \underline{h}_a^T \underline{R}_{aa} \underline{h}_a \\
+ & & - 2 \underline{h}_a^T \underline{R}_{ab} \underline{h}_b + \underline{h}_a^T \underline{R}_{aa} \underline{h}_a + \sigma_\nu^2 \\
+ & = & - \underline{h}_a^T \underline{R}_{ab} \underline{h}_b + \underline{h}_b^T \underline{R}_{ba} \underline{h}_a + \underline{h}_b^T \underline{R}_{bb} \underline{h}_b + \sigma_\nu^2
+\end{eqnarray}
+
+Da $\underline{R}_{ab} = \underline{R}_{ba} = \underline{0}$ ergibt sich:
+\begin{equation}
+ MMSE = - \underline{h}_a^T \underline{0} \underline{h}_b + \underline{h}_b^T \underline{0} \underline{h}_a + \underline{h}_b^T \underline{R}_{bb} \underline{h}_b + \sigma_\nu^2 = \underline{h}_b^T \underline{R}_{bb} \underline{h}_b + \sigma_\nu^2
+\end{equation}
+
+Mit $\underline{h}_b = 1$ (das letzte Element von $\underline{h}$ und $\underline{R}_{bb} = 1$ (das rechte untere Element von $\underline{R}_{xx}$, also $\sigma_x^2 = 1$) erhält man für den MMSE:
+\begin{equation}
+ MMSE = 1 \cdot 1 \cdot 1 + 0.5 = 1.5
+\end{equation}
+
+Das adaptive System hat eine geringere Ordnung als das unbekannte System, es ist also ``unterbestimmt''. Wie in den Problem Classes erklärt kann ein adaptives System einer geringeren Ordnung als das unbekannte System dieses nicht richtig abbilden, dadurch steigt der Fehler (und auch der MMSE).
+
+\subsubsection{N=3}
+
+Dies ist der einfache Fall mit $N=N_h$, die mit der Gleichung aus Aufgabe (a) berechnet werden kann.
+
+\begin{equation}
+ \underline{c}_{MSE} = \underline{h} = \begin{bmatrix} 1 \\ -1 \\ 1 \end{bmatrix}
+\end{equation}
+
+\begin{equation}
+ MMSE = \sigma_\nu^2 = 0.5
+\end{equation}
+
+In diesem Fall ist die Ordnung des adaptiven Systems gleich der Ordnung des unbekannten Systems. Es kann also gut abgebildet werden, und der Fehler wird minimiert. Der MMSE entspricht der Rauschleistung des Eingangsrauschens.
+
+
+\subsubsection{N=4}
+
+Dieser Fall (überbestimmt) ist auch einfach zu lösen. Wie in den Problem Classes gezeigt können die Vektoren mit 0 aufgefüllt werden:
+
+$$ \underline{h}' = \begin{bmatrix} 1 \\ -1 \\ 1 \\ 0 \end{bmatrix}, \underline{x}'[n] = \begin{bmatrix} \underline{x}[n] \\ 0 \end{bmatrix} $$
+
+\begin{equation}
+ \underline{c}_{MSE} = \underline{h} = \begin{bmatrix} 1 \\ -1 \\ 1 \end{bmatrix}
+\end{equation}
+
+\begin{equation}
+ MMSE = \sigma_\nu^2 = 0.5
+\end{equation}
+
+In diesem Fall ist die Ordnung des adaptiven Systems grösser als die Ordnung des unbekannten Systems. Deswegen kann es auch wieder gut abgebildet werden und der Fehler wird minimal (wie im Fall $N=N_h$).
+
+
+\subsection{(d) Berechnung der Korrelationsvektoren von $\nu$}
+
+Aus der Definition von $r_{\nu x}$ erhält man:
+\begin{equation}
+ r_{\nu x}[k] = E\{\nu[n] x[n-k]\} = E\{\frac{1}{2} (x[n] + x[n-1]) x[n-k]\} = \frac{1}{2} E\{x[n] x[n-k]\} + \frac{1}{2} E\{x[n-1] x[n-k]\}
+\end{equation}
+
+Da $x[n]$ ein \emph{zero-mean, white gaussian noise} ist, gilt: $ r_{xx}[0] = \sigma_x^2 = 1, r_{xx}[k] = 0 \forall k \neq 0$. Betrachten wir die möglichen Fälle:
+
+\begin{equation}
+ k=0: r_{\nu x}[0] = \frac{1}{2} E\{x[n] x[n]\} + \frac{1}{2} E\{x[n-1] x[n]\} = \frac{1}{2} r_{xx}[0] + \frac{1}{2} r_{xx}[1] = \frac{1}{2}
+\end{equation}
+
+\begin{equation}
+ k=1: r_{\nu x}[1] = \frac{1}{2} E\{x[n] x[n-1]\} + \frac{1}{2} E\{x[n-1] x[n-1]\} = \frac{1}{2} r_{xx}[1] + \frac{1}{2} r_{xx}[0] = \frac{1}{2}
+\end{equation}
+
+\begin{equation}
+ k \geq 2: r_{\nu x}[k] = \frac{1}{2} E\{x[n] x[n-k]\} + \frac{1}{2} E\{x[n-1] x[n-k]\} = \frac{1}{2} r_{xx}[k] + \frac{1}{2} r_{xx}[k-1] = 0
+\end{equation}
+
+Für $r_{\nu \nu}$ ergibt sich:
+
+\begin{eqnarray}
+ r_{\nu \nu}[k] & = & E\{\nu[n] \nu[n-k]\} = E\{\frac{1}{2} (x[n] + x[n-1]) \frac{1}{2} (x[n-k] + x[n-k-1])\} \\
+ & = & \frac{1}{4} E\{x[n] + x[n-k]\} + \frac{1}{4} E\{x[n] + x[n-k-1]\} \\
+ & & + \frac{1}{4} E\{x[n-1] + x[n-k]\} + \frac{1}{4} E\{x[n-1] + x[n-k-1]\} \\
+ & = & \frac{1}{4} r_{xx}[k] + \frac{1}{4} r_{xx}[k+1] + \frac{1}{4} r_{xx}[k-1] + \frac{1}{4} r_{xx}[k]
+\end{eqnarray}
+
+Wir unterscheiden wieder die möglichen Fälle:
+\begin{equation}
+ k=0: r_{\nu \nu}[0] = \frac{1}{4} r_{xx}[0] + \frac{1}{4} r_{xx}[1] + \frac{1}{4} r_{xx}[-1] + \frac{1}{4} r_{xx}[0] = \frac{1}{2}
+\end{equation}
+
+\begin{equation}
+ k=1: r_{\nu \nu}[1] = \frac{1}{4} r_{xx}[1] + \frac{1}{4} r_{xx}[2] + \frac{1}{4} r_{xx}[0] + \frac{1}{4} r_{xx}[1] = \frac{1}{4}
+\end{equation}
+
+\begin{equation}
+ k \geq 2: r_{\nu \nu}[2] = \frac{1}{4} r_{xx}[k] + \frac{1}{4} r_{xx}[k+1] + \frac{1}{4} r_{xx}[k-1] + \frac{1}{4} r_{xx}[k] = 0
+\end{equation}
+
+Für die Varianz $\sigma_\nu^2$ erhält man mit $\sigma_x^2 = 1$:
+\begin{eqnarray}
+ \sigma_\nu^2 & = & E\{\nu^2[n]\} = E\{\frac{1}{2} (x[n] + x[n-1]) \frac{1}{2} (x[n] + x[n-1])\} \\
+ & = & \frac{1}{4} E\{x^2[n] + 2 x[n]x[n-1] + x^2[n-1]\} \\
+ & = & \frac{1}{4} E\{x^2[n]\} + 2 \frac{1}{4} E\{x[n]x[n-1]\} + \frac{1}{4} E\{x^2[n-1]\} \\
+ & = & \frac{1}{4} \sigma_x^2 + \frac{1}{2} r_{xx}[1] + \frac{1}{4} \sigma_x^2 = \frac{1}{4} 1 + \frac{1}{2} 0 + \frac{1}{4} 1 = \frac{1}{2}
+\end{eqnarray}
+
+
+\subsection{(e) $\underline{c}_{MSE}$ für nicht unkorrelierte $x$ und $\nu$}
+
+Es müssen wieder neue Funktionen definiert werden:
+\begin{equation}
+  d[n] = \underline{h}^T \underline{x}[n] + \frac{1}{2} (x[n] + x[n-1])
+\end{equation}
+
+\begin{equation}
+  y[n] = \underline{c}^T \underline{x}[n]
+\end{equation}
+
+\begin{equation}
+ e[n] = d[n] - y[n] = \underline{h}^T \underline{x}[n] + \frac{1}{2} (x[n] + x[n-1]) - \underline{c}^T \underline{x}[n]
+\end{equation}
+
+Für zukünftigen Gebrauch bestimmen wir $E\{(x[n] + x[n-1]) \underline{x}[n]\}$ ($N=3$):
+\begin{eqnarray}
+ E\{(x[n] + x[n-1]) \underline{x}[n]\} & = & E\{x[n] \underline{x}[n]\} + E\{x[n-1] \underline{x}[n]\} \\
+ & & = E\{x[n] \begin{bmatrix} x[n] \\ x[n-1] \\ x[n-2] \end{bmatrix}\} + E\{x[n-1] \begin{bmatrix} x[n] \\ x[n-1] \\ x[n-2] \end{bmatrix}\} \\
+ & = & \begin{bmatrix} \sigma_x^2 \\ 0 \\ 0 \end{bmatrix} + \begin{bmatrix} 0 \\ \sigma_x^2 \\ 0 \end{bmatrix} = \begin{bmatrix} 1 \\ 1 \\ 0 \end{bmatrix} =: \underline{r}
+\end{eqnarray}
+
+
+Damit wird wieder eine neue Kostenfunktion aufgestellt:
+\begin{eqnarray}
+ J(\underline{c}) & = & E\{e^2[n]\} = E\{(\underline{h}^T \underline{x}[n] + \frac{1}{2} (x[n] + x[n-1]) - \underline{c}^T \underline{x}[n])^2\} \\
+ & = & E\{\underline{h}^T \underline{x}[n] \underline{x}^T[n] \underline{h} + \frac{1}{2} (x[n] + x[n-1]) \underline{h}^T \underline{x}[n] - \underbrace{\underline{h}^T \underline{x}[n] \underline{x}^T[n] \underline{c}}_{\underline{c}^T \underline{x}[n] \underline{x}^T[n] \underline{h}} \\
+ & & + \frac{1}{2} (x[n] + x[n-1]) \underline{h}^T \underline{x}[n] + \frac{1}{4} (x[n] + x[n-1])(x[n] + x[n-1]) \\
+ & & - \frac{1}{2} (x[n] + x[n-1]) \underline{c}^T \underline{x}[n] - \underline{c}^T \underline{x}[n] \underline{x}^T[n] \underline{h} - \frac{1}{2} (x[n] + x[n-1]) \underline{c}^T \underline{x}[n] \\
+ & & + \underline{c}^T \underline{x}[n] \underline{x}^T[n] \underline{c}\} \\
+ & = & \underline{h}^T \underbrace{E\{\underline{x}[n] \underline{x}^T[n]\}}_{\underline{R}_{xx}} \underline{h} + \underline{h}^T \underbrace{E\{(x[n] + x[n-1]) \underline{x}[n]\}}_{\underline{r}} - 2 \underline{c}^T \underbrace{E\{\underline{x}[n] \underline{x}^T[n]\}}_{\underline{R}_{xx}} \underline{h} \\
+ & & + \underbrace{E\{\nu^2[n]\}}_{\sigma_\nu^2} - \underline{c}^T \underbrace{E\{(x[n] + x[n-1]) \underline{x}[n]\}}_{0} + \underline{c}^T \underbrace{E\{\underline{x}[n] \underline{x}^T[n]\}}_{\underline{R}_{xx}} \underline{c} \\
+ & = & \underline{h}^T \underline{R}_{xx} \underline{h} + \underline{h}^T \underline{r} - 2 \underline{c}^T \underline{R}_{xx} \underline{h} - \underline{c}^T \underline{r} + \underline{c}^T \underline{R}_{xx} \underline{c} + \sigma_\mu^2
+\end{eqnarray}
+
+Diese Kostenfunktion wird wieder abgeleitet und 0 gesetzt:
+\begin{equation}
+ \underline{\bigtriangledown}_{\underline{c}_{MSE}} J(\underline{c}_{MSE}) = 0 + 0 - 2 \underline{R}_{xx} \underline{h} + 0 - \underline{r} + 2 \underline{R}_{xx} \underline{c}_{MSE} \stackrel{!}{=} 0
+\end{equation}
+
+Daraus ergibt sich (mit $\underline{r}' = \frac{1}{2} \underline{r}$):
+\begin{equation}
+ 2 \underline{R}_{xx} \underline{h} \underline{r} = 2 \underline{R}_{xx} \underline{c}_{MSE} \Rightarrow \underline{c}_{MSE} = \underline{R}_{xx}^{-1} ( \underline{R}_{xx} \underline{h} * \frac{1}{2} \underline{r}) = \underline{h} + \underline{R}_{xx}^{-1} \underline{r}'
+\end{equation}
+
+Dadurch, dass $\nu$ und $x$ nicht mehr unkorrelliert sind, verändert sich das Ergebnis! Der weitere Term, der hinzukommt, basiert auf $\sigma_x^2$, der Rauschleistung von $x$.
+
+Nun bestimmen wir den MMSE. Dabei ist folgendes wichtig: da $x[n]$ \emph{zero-mean, white gaussian noise} ist, ist $\underline{R}_{xx}$ eine Diagonalmatrix mit $\sigma_x^2$ in den Elementen der Diagonale. In diesem Fall ist also $\underline{R}_{xx}$ die Einheitsmatrix $\underline{I}$! Die Inverse $\underline{R}_{xx}^{-1}$ ist also auch die Einheitsmatrix!
+
+\begin{eqnarray}
+	J(\underline{c}_{MSE}) & = & \underline{h}^T \underline{R}_{xx} \underline{h} + \underline{h}^T \underline{r} - 2 (\underline{h} + \underline{R}_{xx}^{-1} \underline{r}')^T  \underline{R}_{xx} \underline{h} - (\underline{h} + \underline{R}_{xx}^{-1} \underline{r}')^T \underline{r} \\
+	& & + (\underline{h} + \underline{R}_{xx}^{-1} \underline{r}')^T \underline{R}_{xx} (\underline{h} + \underline{R}_{xx}^{-1} \underline{r}') + \sigma_\mu^2 \\
+	& = & \underline{h}^T \underline{R}_{xx} \underline{h} + \underline{h}^T \underline{r} + (\underline{h} + \underline{R}_{xx}^{-1} \underline{r}')^T (-2 \underline{R}_{xx} \underline{h}  - \underline{r} + \underline{R}_{xx} (\underline{h} + \underline{R}_{xx}^{-1} \underline{r}')) + \sigma_\mu^2 \\
+	& = & \underline{h}^T \underline{R}_{xx} \underline{h} + \underline{h}^T \underline{r} + (\underline{h} + \underline{R}_{xx}^{-1} \underline{r}')^T (-2 \underline{R}_{xx} \underline{h}  - \underline{r} + \underline{R}_{xx} \underline{h} + \underline{R}_{xx} \underline{R}_{xx}^{-1} \underline{r}')) + \sigma_\mu^2 \\
+	& = & \underline{h}^T \underline{R}_{xx} \underline{h} + 2 \underline{h}^T \underline{r}' + (\underline{h} + \underline{R}_{xx}^{-1} \underline{r}')^T (-2 \underline{R}_{xx} \underline{h}  - 2 \underline{r}' + \underline{R}_{xx} \underline{h} + \underline{r}')) + \sigma_\mu^2 \\
+	& = & \underline{h}^T \underline{R}_{xx} \underline{h} + 2 \underline{h}^T \underline{r}' - (\underline{h} + \underline{R}_{xx}^{-1} \underline{r}')^T (\underline{R}_{xx} \underline{h} + \underline{r}') + \sigma_\mu^2 \\
+	& = & \underline{h}^T \underline{R}_{xx} \underline{h} + 2 \underline{h}^T \underline{r}' - (\underline{h}^T \underline{R}_{xx} \underline{h} + \underline{h}^T \underline{r}' + \underline{r}'^T \underline{R}_{xx}^{-1^T} \underline{R}_{xx} \underline{h} + \underline{r}'^T \underline{R}_{xx}^{-1^T} \underline{r}' ) + \sigma_\mu^2 \\
+	& = & - \underline{h}^T \underline{r}' - \underbrace{\underline{r}'^T \underline{h}}_{\underline{h}^T \underline{r}'} + 2 \underline{h}^T \underline{r}' - \underline{r}'^T \underline{R}_{xx}^{-1^T} \underline{r}' + \sigma_\mu^2 \\
+	& = & - \underline{r}'^T \underline{R}_{xx}^{-1^T} \underline{r}' + \sigma_\mu^2
+\end{eqnarray}
+
+Da $\underline{R}_{xx}$ symmetrisch ist (Töplitz-Struktur), erhält man mit $(\underline{R}_{xx}^{-1})^T = (\underline{R}_{xx}^T)^{-1} = \underline{R}_{xx}^{-1}$:
+\begin{equation}
+ MMSE = J(\underline{c}_{MSE}) = \sigma_\mu^2 - \underline{r}'^T \underline{R}_{xx}^{-1^T} \underline{r}'
+\end{equation}
+
+Da $\underline{R}_{xx}$ wie bereits erwähnt eine Diagonalmatrix mit 1 in den Diagonalelementen ist, ist $\underline{R}_{xx}^{-1}$ ebenfalls eine Diagonalmatrix mit 1 in den Diagonalelementen (Einheitsmatrix). Mit $\underline{r}' = \begin{bmatrix} \frac{1}{2} \\ \frac{1}{2} \\ 0 \end{bmatrix}$ erhält man für den MMSE:
+\begin{equation}
+ MMSE = 0.5 - \begin{bmatrix} \frac{1}{2} &  \frac{1}{2} & 0 \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 1 & 0 \end{bmatrix} \begin{bmatrix} \frac{1}{2} \\  \frac{1}{2} \\ 0 \end{bmatrix} = 0.5 - \frac{1}{2} = 0
+\end{equation}
+
+Man erkennt, dass sich der Fehler auf 0 verringert hat! Durch den bekannten Zusammenhang zwischen $\nu$ und $x$ lässt sich das System exakt an die Bedingungen anpassen.
+
+Berechnet man nun den MMSE mit $\underline{c} = \underline{h}$, so ergibt sich:
+\begin{equation}
+ MMSE = J(\underline{c} = \underline{h}) = \underline{h}^T \underline{R}_{xx} \underline{h} + \underline{h}^T \underline{r} - 2 \underline{h}^T \underline{R}_{xx} \underline{h} - \underline{h}^T \underline{r} + \underline{h}^T \underline{R}_{xx} \underline{h} + \sigma_\mu^2 = \sigma_\mu^2 = 0.5
+\end{equation}
+
+Bei der Verwendung dieser Anpassung entspricht der Fehler wieder der Rauschleistung $\sigma_\nu^2$.
