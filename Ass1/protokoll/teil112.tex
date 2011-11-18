@@ -2,7 +2,7 @@
 \chapter{Analytic Problem 1.2}
 
 \subsection{(a) Berechnung von $\underline{c}_{MSE}$}
-Zur Bestimmung von $\underline{c}_{MSE}$ muss zuerst eine Kostenfunktion $J(\underline{c})$ aufgestellt werden. Diese wird dann abgeleitet und eine Nullstelle gesucht (Suche nach dem Minimum). Dadurch erhält man $\underline{c}_{MSE}$, bei dem die Abweichung am geringsten ist. $x[n]$ und $\nu [n]$ sind dabei \emph{jointly stationary}.
+Zur Bestimmung von $\underline{c}_{MSE}$ muss zuerst eine Kostenfunktion $J(\underline{c})$ aufgestellt werden. Diese wird dann abgeleitet und eine Nullstelle gesucht (Suche nach dem Minimum). Dadurch erh"alt man $\underline{c}_{MSE}$, bei dem die Abweichung am geringsten ist. $x[n]$ und $\nu [n]$ sind dabei \emph{jointly stationary}.
 
 \begin{equation}
   d[n] = \underline{h}^T \underline{x}[n] + \nu [n]
@@ -41,9 +41,9 @@ Vorraussetzung ist dabei, dass $\underline{R}_{xx}^{-1}$ existiert.
 \end{equation}
 
 
-\subsection{(c) Bestimmung von $\underline{c}_{MSE}$ für bekanntes $\underline{h}$}
+\subsection{(c) Bestimmung von $\underline{c}_{MSE}$ f"ur bekanntes $\underline{h}$}
 
-Bei der Bestimmung von $\underline{c}_{MSE}$ müssen die 3 unterschiedlichen Fälle betrachtet werden: $N<N_h$, $N=N_h$ und $N>N_h$.
+Bei der Bestimmung von $\underline{c}_{MSE}$ m"ussen die 3 unterschiedlichen F"alle betrachtet werden: $N<N_h$, $N=N_h$ und $N>N_h$.
 
 
 \subsubsection{N=2}
@@ -52,7 +52,7 @@ In diesem Fall muss die Berechnung erneut gemacht werden, diesmal aber mit aufge
 
 $$ \underline{x}'[n] = \begin{bmatrix} \underline{x}_a[n] \\ \underline{x}_b[n] \end{bmatrix} $$
 
-Die Grösse des Vektors $\underline{x}[n]$ ist $(N_h,1)$, Teilvektor $\underline{x}_a[n]$ ist $(N,1)$, Teilvektor $\underline{x}_b[n]$ ist $(N_h-N,1)$.
+Die Gr"osse des Vektors $\underline{x}[n]$ ist $(N_h,1)$, Teilvektor $\underline{x}_a[n]$ ist $(N,1)$, Teilvektor $\underline{x}_b[n]$ ist $(N_h-N,1)$.
 
 \begin{equation}
   d[n] = \underbrace{\underline{h}^T}_{(1,N_h)} \underbrace{\underline{x}[n]}_{(N_h,1)} + \nu [n]
@@ -81,7 +81,7 @@ Man kann jetzt neue Korrelationsmatrizen definieren:
 \end{equation}
 
 
-Die Kostenfunktion ergibt sich für dieses Beispiel zu:
+Die Kostenfunktion ergibt sich f"ur dieses Beispiel zu:
 \begin{eqnarray}
  J(\underline{c}) & = & E\{e^2[n]\} = E\{(\underline{h}^T \underline{x}[n] + \nu [n] - \underline{c}^T \underline{x}_a[n])^2\} \\
  & = & E\{\underline{h}^T \underline{x}[n] \underline{x}^T[n] \underline{h} + \nu [n] \underline{h}^T \underline{x}[n] - \underbrace{\underline{h}^T \underline{x}[n] \underline{x}_a^T[n] \underline{c}}_{\underline{c}^T \underline{x}_a[n] \underline{x}^T[n] \underline{h}} + \nu [n] \underline{h}^T \underline{x}[n] + \nu^2[n] \\
@@ -121,12 +121,12 @@ Da $\underline{R}_{ab} = \underline{R}_{ba} = \underline{0}$ ergibt sich:
  MMSE = - \underline{h}_a^T \underline{0} \underline{h}_b + \underline{h}_b^T \underline{0} \underline{h}_a + \underline{h}_b^T \underline{R}_{bb} \underline{h}_b + \sigma_\nu^2 = \underline{h}_b^T \underline{R}_{bb} \underline{h}_b + \sigma_\nu^2
 \end{equation}
 
-Mit $\underline{h}_b = 1$ (das letzte Element von $\underline{h}$ und $\underline{R}_{bb} = 1$ (das rechte untere Element von $\underline{R}_{xx}$, also $\sigma_x^2 = 1$) erhält man für den MMSE:
+Mit $\underline{h}_b = 1$ (das letzte Element von $\underline{h}$ und $\underline{R}_{bb} = 1$ (das rechte untere Element von $\underline{R}_{xx}$, also $\sigma_x^2 = 1$) erh"alt man f"ur den MMSE:
 \begin{equation}
  MMSE = 1 \cdot 1 \cdot 1 + 0.5 = 1.5
 \end{equation}
 
-Das adaptive System hat eine geringere Ordnung als das unbekannte System, es ist also ``unterbestimmt''. Wie in den Problem Classes erklärt kann ein adaptives System einer geringeren Ordnung als das unbekannte System dieses nicht richtig abbilden, dadurch steigt der Fehler (und auch der MMSE).
+Das adaptive System hat eine geringere Ordnung als das unbekannte System, es ist also ``unterbestimmt''. Wie in den Problem Classes erkl"art kann ein adaptives System einer geringeren Ordnung als das unbekannte System dieses nicht richtig abbilden, dadurch steigt der Fehler (und auch der MMSE).
 
 \subsubsection{N=3}
 
@@ -145,7 +145,7 @@ In diesem Fall ist die Ordnung des adaptiven Systems gleich der Ordnung des unbe
 
 \subsubsection{N=4}
 
-Dieser Fall (überbestimmt) ist auch einfach zu lösen. Wie in den Problem Classes gezeigt können die Vektoren mit 0 aufgefüllt werden:
+Dieser Fall ("uberbestimmt) ist auch einfach zu l"osen. Wie in den Problem Classes gezeigt k"onnen die Vektoren mit 0 aufgef"ullt werden:
 
 $$ \underline{h}' = \begin{bmatrix} 1 \\ -1 \\ 1 \\ 0 \end{bmatrix}, \underline{x}'[n] = \begin{bmatrix} \underline{x}[n] \\ 0 \end{bmatrix} $$
 
@@ -157,17 +157,17 @@ $$ \underline{h}' = \begin{bmatrix} 1 \\ -1 \\ 1 \\ 0 \end{bmatrix}, \underline{
  MMSE = \sigma_\nu^2 = 0.5
 \end{equation}
 
-In diesem Fall ist die Ordnung des adaptiven Systems grösser als die Ordnung des unbekannten Systems. Deswegen kann es auch wieder gut abgebildet werden und der Fehler wird minimal (wie im Fall $N=N_h$).
+In diesem Fall ist die Ordnung des adaptiven Systems gr"osser als die Ordnung des unbekannten Systems. Deswegen kann es auch wieder gut abgebildet werden und der Fehler wird minimal (wie im Fall $N=N_h$).
 
 
 \subsection{(d) Berechnung der Korrelationsvektoren von $\nu$}
 
-Aus der Definition von $r_{\nu x}$ erhält man:
+Aus der Definition von $r_{\nu x}$ erh"alt man:
 \begin{equation}
  r_{\nu x}[k] = E\{\nu[n] x[n-k]\} = E\{\frac{1}{2} (x[n] + x[n-1]) x[n-k]\} = \frac{1}{2} E\{x[n] x[n-k]\} + \frac{1}{2} E\{x[n-1] x[n-k]\}
 \end{equation}
 
-Da $x[n]$ ein \emph{zero-mean, white gaussian noise} ist, gilt: $ r_{xx}[0] = \sigma_x^2 = 1, r_{xx}[k] = 0 \forall k \neq 0$. Betrachten wir die möglichen Fälle:
+Da $x[n]$ ein \emph{zero-mean, white gaussian noise} ist, gilt: $ r_{xx}[0] = \sigma_x^2 = 1, r_{xx}[k] = 0 \forall k \neq 0$. Betrachten wir die m"oglichen F"alle:
 
 \begin{equation}
  k=0: r_{\nu x}[0] = \frac{1}{2} E\{x[n] x[n]\} + \frac{1}{2} E\{x[n-1] x[n]\} = \frac{1}{2} r_{xx}[0] + \frac{1}{2} r_{xx}[1] = \frac{1}{2}
@@ -181,7 +181,7 @@ Da $x[n]$ ein \emph{zero-mean, white gaussian noise} ist, gilt: $ r_{xx}[0] = \s
  k \geq 2: r_{\nu x}[k] = \frac{1}{2} E\{x[n] x[n-k]\} + \frac{1}{2} E\{x[n-1] x[n-k]\} = \frac{1}{2} r_{xx}[k] + \frac{1}{2} r_{xx}[k-1] = 0
 \end{equation}
 
-Für $r_{\nu \nu}$ ergibt sich:
+F"ur $r_{\nu \nu}$ ergibt sich:
 
 \begin{eqnarray}
  r_{\nu \nu}[k] & = & E\{\nu[n] \nu[n-k]\} = E\{\frac{1}{2} (x[n] + x[n-1]) \frac{1}{2} (x[n-k] + x[n-k-1])\} \\
@@ -190,7 +190,7 @@ Für $r_{\nu \nu}$ ergibt sich:
  & = & \frac{1}{4} r_{xx}[k] + \frac{1}{4} r_{xx}[k+1] + \frac{1}{4} r_{xx}[k-1] + \frac{1}{4} r_{xx}[k]
 \end{eqnarray}
 
-Wir unterscheiden wieder die möglichen Fälle:
+Wir unterscheiden wieder die m"oglichen F"alle:
 \begin{equation}
  k=0: r_{\nu \nu}[0] = \frac{1}{4} r_{xx}[0] + \frac{1}{4} r_{xx}[1] + \frac{1}{4} r_{xx}[-1] + \frac{1}{4} r_{xx}[0] = \frac{1}{2}
 \end{equation}
@@ -203,7 +203,7 @@ Wir unterscheiden wieder die möglichen Fälle:
  k \geq 2: r_{\nu \nu}[2] = \frac{1}{4} r_{xx}[k] + \frac{1}{4} r_{xx}[k+1] + \frac{1}{4} r_{xx}[k-1] + \frac{1}{4} r_{xx}[k] = 0
 \end{equation}
 
-Für die Varianz $\sigma_\nu^2$ erhält man mit $\sigma_x^2 = 1$:
+F"ur die Varianz $\sigma_\nu^2$ erh"alt man mit $\sigma_x^2 = 1$:
 \begin{eqnarray}
  \sigma_\nu^2 & = & E\{\nu^2[n]\} = E\{\frac{1}{2} (x[n] + x[n-1]) \frac{1}{2} (x[n] + x[n-1])\} \\
  & = & \frac{1}{4} E\{x^2[n] + 2 x[n]x[n-1] + x^2[n-1]\} \\
@@ -212,9 +212,9 @@ Für die Varianz $\sigma_\nu^2$ erhält man mit $\sigma_x^2 = 1$:
 \end{eqnarray}
 
 
-\subsection{(e) $\underline{c}_{MSE}$ für nicht unkorrelierte $x$ und $\nu$}
+\subsection{(e) $\underline{c}_{MSE}$ f"ur nicht unkorrelierte $x$ und $\nu$}
 
-Es müssen wieder neue Funktionen definiert werden:
+Es m"ussen wieder neue Funktionen definiert werden:
 \begin{equation}
   d[n] = \underline{h}^T \underline{x}[n] + \frac{1}{2} (x[n] + x[n-1])
 \end{equation}
@@ -227,7 +227,7 @@ Es müssen wieder neue Funktionen definiert werden:
  e[n] = d[n] - y[n] = \underline{h}^T \underline{x}[n] + \frac{1}{2} (x[n] + x[n-1]) - \underline{c}^T \underline{x}[n]
 \end{equation}
 
-Für zukünftigen Gebrauch bestimmen wir $E\{(x[n] + x[n-1]) \underline{x}[n]\}$ ($N=3$):
+F"ur zuk"unftigen Gebrauch bestimmen wir $E\{(x[n] + x[n-1]) \underline{x}[n]\}$ ($N=3$):
 \begin{eqnarray}
  E\{(x[n] + x[n-1]) \underline{x}[n]\} & = & E\{x[n] \underline{x}[n]\} + E\{x[n-1] \underline{x}[n]\} \\
  & & = E\{x[n] \begin{bmatrix} x[n] \\ x[n-1] \\ x[n-2] \end{bmatrix}\} + E\{x[n-1] \begin{bmatrix} x[n] \\ x[n-1] \\ x[n-2] \end{bmatrix}\} \\
@@ -257,7 +257,7 @@ Daraus ergibt sich (mit $\underline{r}' = \frac{1}{2} \underline{r}$):
  2 \underline{R}_{xx} \underline{h} \underline{r} = 2 \underline{R}_{xx} \underline{c}_{MSE} \Rightarrow \underline{c}_{MSE} = \underline{R}_{xx}^{-1} ( \underline{R}_{xx} \underline{h} * \frac{1}{2} \underline{r}) = \underline{h} + \underline{R}_{xx}^{-1} \underline{r}'
 \end{equation}
 
-Dadurch, dass $\nu$ und $x$ nicht mehr unkorrelliert sind, verändert sich das Ergebnis! Der weitere Term, der hinzukommt, basiert auf $\sigma_x^2$, der Rauschleistung von $x$.
+Dadurch, dass $\nu$ und $x$ nicht mehr unkorrelliert sind, ver"andert sich das Ergebnis! Der weitere Term, der hinzukommt, basiert auf $\sigma_x^2$, der Rauschleistung von $x$.
 
 Nun bestimmen wir den MMSE. Dabei ist folgendes wichtig: da $x[n]$ \emph{zero-mean, white gaussian noise} ist, ist $\underline{R}_{xx}$ eine Diagonalmatrix mit $\sigma_x^2$ in den Elementen der Diagonale. In diesem Fall ist also $\underline{R}_{xx}$ die Einheitsmatrix $\underline{I}$! Die Inverse $\underline{R}_{xx}^{-1}$ ist also auch die Einheitsmatrix!
 
@@ -273,17 +273,17 @@ Nun bestimmen wir den MMSE. Dabei ist folgendes wichtig: da $x[n]$ \emph{zero-me
 	& = & - \underline{r}'^T \underline{R}_{xx}^{-1^T} \underline{r}' + \sigma_\mu^2
 \end{eqnarray}
 
-Da $\underline{R}_{xx}$ symmetrisch ist (Töplitz-Struktur), erhält man mit $(\underline{R}_{xx}^{-1})^T = (\underline{R}_{xx}^T)^{-1} = \underline{R}_{xx}^{-1}$:
+Da $\underline{R}_{xx}$ symmetrisch ist (T"oplitz-Struktur), erh"alt man mit $(\underline{R}_{xx}^{-1})^T = (\underline{R}_{xx}^T)^{-1} = \underline{R}_{xx}^{-1}$:
 \begin{equation}
  MMSE = J(\underline{c}_{MSE}) = \sigma_\mu^2 - \underline{r}'^T \underline{R}_{xx}^{-1^T} \underline{r}'
 \end{equation}
 
-Da $\underline{R}_{xx}$ wie bereits erwähnt eine Diagonalmatrix mit 1 in den Diagonalelementen ist, ist $\underline{R}_{xx}^{-1}$ ebenfalls eine Diagonalmatrix mit 1 in den Diagonalelementen (Einheitsmatrix). Mit $\underline{r}' = \begin{bmatrix} \frac{1}{2} \\ \frac{1}{2} \\ 0 \end{bmatrix}$ erhält man für den MMSE:
+Da $\underline{R}_{xx}$ wie bereits erw"ahnt eine Diagonalmatrix mit 1 in den Diagonalelementen ist, ist $\underline{R}_{xx}^{-1}$ ebenfalls eine Diagonalmatrix mit 1 in den Diagonalelementen (Einheitsmatrix). Mit $\underline{r}' = \begin{bmatrix} \frac{1}{2} \\ \frac{1}{2} \\ 0 \end{bmatrix}$ erh"alt man f"ur den MMSE:
 \begin{equation}
  MMSE = 0.5 - \begin{bmatrix} \frac{1}{2} &  \frac{1}{2} & 0 \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 1 & 0 \end{bmatrix} \begin{bmatrix} \frac{1}{2} \\  \frac{1}{2} \\ 0 \end{bmatrix} = 0.5 - \frac{1}{2} = 0
 \end{equation}
 
-Man erkennt, dass sich der Fehler auf 0 verringert hat! Durch den bekannten Zusammenhang zwischen $\nu$ und $x$ lässt sich das System exakt an die Bedingungen anpassen.
+Man erkennt, dass sich der Fehler auf 0 verringert hat! Durch den bekannten Zusammenhang zwischen $\nu$ und $x$ l"asst sich das System exakt an die Bedingungen anpassen.
 
 Berechnet man nun den MMSE mit $\underline{c} = \underline{h}$, so ergibt sich:
 \begin{equation}
