@@ -1,0 +1,124 @@
+\clearpage
+\chapter{Analytic Problem 1.2}
+
+\paragraph{a)}
+Wie in der "Ubung om 25.10.2011 Hergeleitet kann die Kostenfunktion wie folgt angeschrieben werden:
+
+\begin{equation}
+ J(\vm{c}) = \sigma_v^2 - 2\vm{c}^T \vm{p} + \vm{c}^T\vm{R}_{xx}\vm{c}
+\label{eq:cost1}
+\end{equation}
+
+Die Gleichung \ref{eq:cost1} kann wie folgt umformuliert werden:
+
+\begin{equation}
+ J(\vm{c}) = \sigma_v^2 - \vm{p}^T\vm{R}_{xx}^{-1}\vm{p} + (\vm{c} - \vm{R}_{xx}^{-1}\vm{p})^T\vm{R}_{xx}(\vm{c} - \vm{R}_{xx}^{-1}\vm{p})
+\label{eq:cost2}
+\end{equation}
+
+
+Beweis: Durch Ausmultiplizieren der Klammern gelangt man wieder auf die Gleichung \ref{eq:cost1}:
+
+\begin{align}
+ J(\vm{c}) &= \sigma_v^2 - \vm{p}^T\vm{R}_{xx}^{-1}\vm{p} + (\vm{c}^T - \vm{p}\vm{R}_{xx}^{-1})(\vm{R}_{xx}\vm{c} - \vm{R}_{xx}\vm{R}_{xx}^{-1}\vm{p}) \\
+  &=  \sigma_v^2 - \vm{p}^T\vm{R}_{xx}^{-1}\vm{p} + \vm{c}^T\vm{R}_{xx}\vm{c} - \vm{p}^T\vm{R}_{xx}^{-1}\vm{R}_{xx}\vm{c} - \vm{c}^T\vm{p} + \vm{p}^T\vm{R}_{xx}^{-1}\vm{p} \\
+  &=  \sigma_v^2 + \vm{c}^T\vm{R}_{xx}\vm{c} - \vm{p}^T\vm{c} - \vm{c}^T\vm{p} \\
+  &=  \sigma_v^2 + \vm{c}^T\vm{R}_{xx}\vm{c} - 2 \vm{c}^T\vm{p}
+\label{eq:cost_beweis}
+\end{align}
+
+In der Gleichung \ref{eq:cost2} kommt der Ausdruck $\vm{c} - \vm{R}_{xx}^{-1}\vm{p}$ vor. Dieser Ausdruck entspricht
+genau dem Misalignment-Vector, da $\vm{R}_{xx}^{-1}\vm{p}$ der Wiener Hopf-Solution entspricht und somit die optimale
+L"osung darstellt.
+
+Somit kann die Kostenfunktion in Abh"angigkeit von $\vm{v}$ (Misalignment-Vektor) ausgedr"uckt werden:
+\begin{equation}
+ J(\vm{c}) = \sigma_v^2 - \vm{p}^T\vm{R}_{xx}^{-1}\vm{p} + \vm{v}^T\vm{R}_{xx}\vm{v}
+\label{eq:cost3}
+\end{equation}
+Anhand dieser Gleichung erkennt man, dass der vordere Teil ($\sigma_v^2 - \vm{p}^T\vm{R}_{xx}^{-1}\vm{p}$)
+unabh"angig vom Misalignment-Vektor ist und somit das Minimum der Kostenfunktion($J_{min}$) darstellt.
+
+\paragraph{b)}
+
+Die Autokorrelationsmatrix $\vm{R}_{xx}$ kann mittels der Eigenwerte/Eigenvektoren wie folgt zerlegt werden:
+
+\begin{equation}
+\vm{R}_{xx} = \vm{Q}\vm{\Delta}\vm{Q}^T
+\end{equation}
+
+Wobei die Matrix $\vm{\Delta}$ eine Diagonalmatrix ist, welche die Eigenwerte von $\vm{R}_{xx}$ enth"alt.
+Die Matrix $\vm{Q}$ enth"alt alle Eigenvektoren.
+
+Diese Beziehung kann in die Gleichung \ref{eq:cost3} eingesetzt werden und man erh"alt:
+
+\begin{equation}
+ J(\vm{c}) = J_{min} + \vm{v}^T\vm{Q}\vm{\Delta}\vm{Q}^T\vm{v}
+\label{eq:costasfd}
+\end{equation}
+
+F"ugt man nun noch folgende Substituion ein: $\vm{\tilde{v}} = \vm{Q}^T\vm{v}$, so erh"alt man
+eine Gleichung f"ur die Kostenfunktion bei der die einzelnen Komponenten von $\vm{\tilde{v}}$ entkoppelt sind:
+
+\begin{equation}
+ J(\vm{c}) = J_{min} + \vm{\tilde{v}}^T\vm{\Delta}\vm{\tilde{v}}
+\label{eq:cost4}
+\end{equation}
+
+Die Gleichung \ref{eq:cost4} in Matrixschreibweise kann nun wie folgt in eine Summe umgeschrieben werden:
+
+\begin{equation}
+ J(\vm{c}) = J_{min} + \sum_{k=1}^N \tilde{v}_k^2 \lambda_k
+\label{eq:cost5}
+\end{equation}
+
+\paragraph{c)}
+
+Wie in der "Ubung vom 22.11.2011 gezeit wurde, verhalten sich die einzelnen Komponenten von $\vm{\tilde{v}}$
+wie folgt:
+
+\begin{equation}
+ \tilde{v}_k[n] = (1-\mu \lambda_k)^n \tilde{v}_k[0] = \tilde{v}_k[0]e^{-n/\tau_k}
+\label{eq:misalignment_evolution}
+\end{equation}
+
+Diese Gleichung in Gleichung \ref{eq:cost5} eingesetzt ergibt:
+\begin{equation}
+ J(\vm{c}) = J_{min} + \sum_{k=1}^N \tilde{v}_k^2[0] \lambda_k e^{-2n/\tau_k}
+\label{eq:cost6}
+\end{equation}
+
+\paragraph{d)}
+
+Die Zeitkonstanten k"onnen aus der Gleichung \ref{eq:misalignment_evolution} ermittelt werden:
+Daraus ergibt sich f"ur $\tau_k$ (wie auch in der "Ubung bereits hergeleitet) folgendes:
+
+\begin{equation}
+ \tau_k = \frac{-1}{log|1-\mu \lambda_k|}  \approx \frac{1}{\mu \lambda_k}
+\end{equation}
+
+\begin{equation}
+ J(\vm{c}) = J_{min} + \sum_{k=1}^N \tilde{v}_k^2[0] \lambda_k e^{-2n \mu \lambda_k}
+\label{eq:cost7}
+\end{equation}
+
+\paragraph{e)}
+
+White noise with unit variance => $R_{xx} = \vm{I}$. Die Eigenenwerte einer Diagonalmatrix entsprechen genau
+den Werten in der Diagonale. Somit sind beide Eigenwerte = 1.
+Die Eigenvektoren sind $[1 0]^T$ und $[0 1]^T$. Die Eigenvektoren in die Matrix $\vm{Q}$ eingetragen ergibt:
+
+\begin{equation}
+ \vm{Q}^T = \vm{Q} = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}
+\end{equation}
+
+\begin{equation}
+ \vm{\tilde{v}}[0] = \vm{Q}^T \vm{v}[0] = \begin{pmatrix} -2 \\ -1 \end{pmatrix}
+\end{equation}
+
+Diese Werte in die Gleichung f"ur die Kostenfunktion eingesetzt ergibt:
+
+\begin{equation}
+ J(\vm{c}) = J_{min} + 4e^{-2n\mu} + e^{-2n\mu}
+\label{eq:cost_example}
+\end{equation}
