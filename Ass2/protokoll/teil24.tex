@@ -1,0 +1,50 @@
+\clearpage
+
+
+\section{Analytical Problem 2.4: Average Behaviour of the LMS}
+
+Zur Berechnung wurde die Struktur aus Abbildung 2 in der Angabe verwendet. Das Eingangssignal $x[n]$ ist \emph{white}, laut der Angabe zur Abbildung 2 ist das Noise $\nu[n]$ ebenfalls \emph{white Gaussian noise}, die beiden sind also nicht korreliert und \emph{white}.
+
+Die Lernregel des LMS lautet:
+\begin{equation}
+  \mathbf{c}[n] = \mathbf{c}[n-1] + \mu e[n] \mathbf{x}[n]
+\end{equation}
+
+Wir gehen von Konvergenz \emph{on average} aus:
+\begin{equation}
+  E \left\lbrace \mathbf{c}[n] \right\rbrace = E \left\lbrace \mathbf{c}[n-1] \right\rbrace = E \left\lbrace \mathbf{c}_\infty \right\rbrace
+\end{equation}
+
+Der Fehler $e[n]$ ergibt sich zu:
+\begin{equation}
+  e[n] = - \mathbf{v}^T[n-1] \mathbf{x}[n] + \nu[n]
+\end{equation}
+
+Setzen wir den Fehler in die Lernregel f"ur LMS ein und wenden den Erwartungswert-Operator an, k"onnen wir die L"osung f"ur $\mathbf{c}_\infty$ berechnen:
+\begin{eqnarray}
+  E \left\lbrace \mathbf{c}[n] \right\rbrace & = & E \left\lbrace \mathbf{c}[n-1] \right\rbrace + \mu E \left\lbrace e[n] \mathbf{x}[n] \right\rbrace \\
+  & = & E \left\lbrace \mathbf{c}[n-1] \right\rbrace - \mu E \left\lbrace \mathbf{v}^T[n-1] \mathbf{x}[n] \mathbf{x}[n] + \nu[n] \mathbf{x}[n] \right\rbrace \\
+  & = & E \left\lbrace \mathbf{c}[n-1] \right\rbrace - \mu E \left\lbrace \mathbf{v}^T[n-1] \mathbf{x}[n] \mathbf{x}[n] \right\rbrace - \mu E \left\lbrace \nu[n] \mathbf{x}[n] \right\rbrace \\
+  & = & E \left\lbrace \mathbf{c}[n-1] \right\rbrace - \mu E \left\lbrace \left( \mathbf{c}^T[n-1] - \mathbf{h}^T \right) \mathbf{x}[n] \mathbf{x}[n] \right\rbrace - \mu E \left\lbrace \nu[n] \mathbf{x}[n] \right\rbrace \\
+  & = & E \left\lbrace \mathbf{c}[n-1] \right\rbrace - \mu E \left\lbrace \mathbf{c}^T[n-1] \mathbf{x}[n] \mathbf{x}[n] - \mathbf{h}^T \mathbf{x}[n] \mathbf{x}[n] \right\rbrace - \mu E \left\lbrace \nu[n] \mathbf{x}[n] \right\rbrace \\
+  & = & E \left\lbrace \mathbf{c}[n-1] \right\rbrace - \mu E \left\lbrace \underbrace{\mathbf{x}[n] \mathbf{x}^T[n]}_{\mathbf{R}_{xx}} \mathbf{c}[n-1] - \underbrace{\mathbf{x}[n] \mathbf{x}^T[n]}_{\mathbf{R}_{xx}} \mathbf{h} \right\rbrace - \mu \underbrace{E \left\lbrace \nu[n] \mathbf{x}[n] \right\rbrace}_{\text{both WGN, uncorrelated} \; \Rightarrow 0} \\
+  & = & E \left\lbrace \mathbf{c}[n-1] \right\rbrace - \mu \mathbf{R}_{xx} E \left\lbrace \mathbf{c}[n-1] \right\rbrace + \mu \mathbf{R}_{xx} \mathbf{h} \\
+  \Rightarrow E \left\lbrace \mathbf{c}_\infty \right\rbrace & = & E \left\lbrace \mathbf{c}_\infty \right\rbrace - \mu \mathbf{R}_{xx} E \left\lbrace \mathbf{c}_\infty \right\rbrace + \mu \mathbf{R}_{xx} \mathbf{h} \\
+  & = & \left( \mathbf{I} - \mu \mathbf{R}_{xx} \right) E \left\lbrace \mathbf{c}_\infty \right\rbrace + \mu \mathbf{R}_{xx} \mathbf{h}
+\end{eqnarray}
+
+Diese Gleichung wird nun auf $E \left\lbrace \mathbf{c}_\infty \right\rbrace$ umgeformt:
+\begin{eqnarray}
+ E \left\lbrace \mathbf{c}_\infty \right\rbrace & = & \left( \mathbf{I} - \mu \mathbf{R}_{xx} \right) E \left\lbrace \mathbf{c}_\infty \right\rbrace + \mu \mathbf{R}_{xx} \mathbf{h} \\
+ \mu \mathbf{R}_{xx} E \left\lbrace \mathbf{c}_\infty \right\rbrace & = & \mu \mathbf{R}_{xx} \mathbf{h} \\
+ E \left\lbrace \mathbf{c}_\infty \right\rbrace & = & \mathbf{R}_{xx}^{-1} \mathbf{R}_{xx} \mathbf{h} \\
+ E \left\lbrace \mathbf{c}_\infty \right\rbrace & = & \mathbf{h}
+\end{eqnarray}
+
+%\begin{align}
+%  E \left\lbrace \mathbf{c}_\infty \right\rbrace & = & \left( \mathbf{I} - \mu \mathbf{R}_{xx} \right) E \left\lbrace \mathbf{c}_\infty \right\rbrace + \mu \mathbf{R}_{xx} \mathbf{h} &  \\
+%  \mu \mathbf{R}_{xx} E \left\lbrace \mathbf{c}_\infty \right\rbrace & = & \mu \mathbf{R}_{xx} \mathbf{h} &  | \cdot \frac{1}{\mu} \; \; \; | \cdot \mathbf{R}_{xx}^{-1} \\
+%  E \left\lbrace \mathbf{c}_\infty \right\rbrace & = & \mathbf{h} & 
+%\end{align}
+
+Die L"osung ist also die gleiche wie die optimale MSE-L"osung.
