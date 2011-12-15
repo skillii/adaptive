@@ -10,7 +10,11 @@ Diese Formel stimmte auch sehr gut mit den aus den Plots ermittelten Werten für 
 Wie in der Abbildung \ref{fig:2_3_a_1} zu sehen, ist der Algorithmus bei $\mu=1$ im Falle des LMS instabil.
 Der Misalignmentvector divergiert und der MSE wird immer größer.
 Beim NLMS und $\mu=1$ ist keine deutliche Konvergenz des Misalignmentvectors ersichtlich. Der Misalignmentvector
-divergiert allerdings auch nicht so wie beim LMS(ohne Normalisierung).
+divergiert allerdings auch nicht so wie beim LMS(ohne Normalisierung). Der Grund hierfür ist, dass $\mu$ durch
+$\vm{x}[n]$ dividiert wird und somit etwas kleiner ist. $\mu$ ist aber dennoch zu groß um die Koeffizienten vernünftig
+anzunähern.
+
+
 Für ein größeres $\mu$ konvertiert der MSE wesentlich schneller gegen sein Minimum, allerdings ist auch
 der Excess-Error etwas größer.
 
@@ -138,6 +142,8 @@ zu sehen.
 
 Da das Eingangssignal jetzt keine Weißes Rauschen mehr ist, sind die Eigenwerte von $\vm{R}_{xx}$ nicht mehr gleich.
 Dadurch konvergieren die Komponenten von $v$ unterschiedlich schnell.
+
+Der MSE nimmt kontinuierlich ab, bis er den noise-floor erreicht (MMSE + excess-error).
 
 \begin{figure}[ht!]
  \centering

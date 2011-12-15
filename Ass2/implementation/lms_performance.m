@@ -6,11 +6,11 @@ clear;
 h = [0.6;0.2;0.4];
 noise_variance = 0.008;
 N = 3;
-M = 20;
+M = 30;
 
 
 
-for NORM = 1
+for NORM = 0:1
     for mu = [0.001, 0.01, 1]
 
         if NORM == 0
@@ -79,8 +79,8 @@ for NORM = 1
         poly3 = polyfit(0:(Ns/2), log_v_mean3(1:(Ns/2+1)),1);
 
         tau1 = -1/poly1(1);
-        tau2 = -1/poly1(1);
-        tau3 = -1/poly1(1);
+        tau2 = -1/poly2(1);
+        tau3 = -1/poly3(1);
 
         legend(['v_1[n], tau_1=', num2str(tau1,5)], ['v_2[n], tau_2=', num2str(tau2,5)], ['v_3[n], tau_3=', num2str(tau3,5)]);
         title(['mu = ', num2str(mu), ', NORM=', num2str(NORM)]);
@@ -97,7 +97,7 @@ end
 %%
 mu = 0.001;
 
-for NORM = [1]
+for NORM = [0:1]
     for x_var = [0.2, 1.5]
 
         if NORM == 0
@@ -160,8 +160,8 @@ for NORM = [1]
         poly3 = polyfit(0:(Ns/2), log_v_mean3(1:(Ns/2+1)),1);
 
         tau1 = -1/poly1(1);
-        tau2 = -1/poly1(1);
-        tau3 = -1/poly1(1);
+        tau2 = -1/poly2(1);
+        tau3 = -1/poly3(1);
 
         legend(['v_1[n], tau_1=', num2str(tau1,5)], ['v_2[n], tau_2=', num2str(tau2,5)], ['v_3[n], tau_3=', num2str(tau3,5)]);       
         title(['mu = ', num2str(mu), ', NORM=', num2str(NORM), ', Input-Variance:', num2str(x_var)]);
@@ -238,8 +238,8 @@ for NORM = [0,1]
         poly3 = polyfit(0:(Ns/2), log_v_mean3(1:(Ns/2+1)),1);
 
         tau1 = -1/poly1(1);
-        tau2 = -1/poly1(1);
-        tau3 = -1/poly1(1);
+        tau2 = -1/poly2(1);
+        tau3 = -1/poly3(1);
 
         legend(['v_1[n], tau_1=', num2str(tau1,5)], ['v_2[n], tau_2=', num2str(tau2,5)], ['v_3[n], tau_3=', num2str(tau3,5)]);       
         title(['mu = ', num2str(mu), ', NORM=', num2str(NORM), ', Input-Variance:', num2str(x_var), ', filtered white-noise']);
