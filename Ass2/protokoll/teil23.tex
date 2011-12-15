@@ -163,6 +163,7 @@ Der MSE nimmt kontinuierlich ab, bis er den noise-floor erreicht (MMSE + excess-
 
 
 \paragraph{d)}
+Der MSE nimmt kontinuierlich ab, bis er den noise-floor erreicht (MMSE + excess-error).
 
 \paragraph{e)}
 
@@ -180,5 +181,58 @@ Wobei $M$ als Misadjustment bezeichnet wird
 \end{equation}
 Wobei $\vm{x[n]}||^2$ Der Varianz des Eingangssingals entspricht.
 
-Somit ergeben sich folgende Ex
+Das Minimum der Kostenfunktion(=MMSE) (siehe Gleichung \ref{eq:cost3} wurde wie folgt ermittelt:
 
+\begin{equation}
+MMSE = \sigma_v^2 - \vm{p}^T\vm{R}_{xx}^{-1}\vm{p}
+\label{eq:bla}
+\end{equation}
+
+Formt man nun die Wiener Hopf Solution auf $\vm{p}$ um so erhält man:
+$\vm{p} = \vm{R}_{xx}\vm{h}$. In die Gleichung \ref{eq:bla} eingesetzt ergibt das (f"ur white noise!!!):
+
+\begin{equation}
+MMSE = \sigma_v^2 - \vm{h}^T\vm{R}_{xx}^T \vm{R}_{xx}^{-1} \vm{R}_{xx}\vm{h} = \sigma_v^2 -\vm{h}^T\vm{R}_{xx}^T\vm{h}
+= \sigma_v^2 - ||h||\sigma_x^2
+\label{eq:bla1}
+\end{equation}
+
+\begin{equation}
+ excess error = MMSE \cdot M
+\end{equation}
+
+
+Nun ergeben sich folgende Werte für den Excesserror in dB:\\
+
+
+\begin{table}[!htp]
+\begin{center}
+\begin{tabular}
+{| c || c | c | c | c | c |}   %  || zur Unterteilung eingestellte/gemnessene/berechnete Werte
+\hline
+Eingangs-Varianz $\sigma_x^2$ & $\mu = 0.0001$ & $\mu = 0.001$ & $\mu = 0.01$ & $\mu = 1$ \\ \hline \hline
+1 & -44.31 & -34.31 & -24.31 & -4.31 \\ \hline
+1.5 &  -40.7786 & -30.7786 & -20.7786 &  -0.7786 \\ \hline
+0.2 & -58.4873 & -48.4873 & -38.4873 & -18.4873 \\ \hline
+\end{tabular}
+\caption{Ermittelten Werte für den Excess-Error in dB beim LMS}
+\end{center}
+\end{table}
+
+\begin{table}[!htp]
+\begin{center}
+\begin{tabular}
+{| c || c | c | c | c | c |}   %  || zur Unterteilung eingestellte/gemnessene/berechnete Werte
+\hline
+Eingangs-Varianz $\sigma_x^2$ & $\mu = 0.0001$ & $\mu = 0.001$ & $\mu = 0.01$ & $\mu = 1$ \\ \hline \hline
+1 & -49.0873 & -39.0873 & -29.0873  & -9.0873 \\ \hline
+1.5 &  -45.5498 & -35.5498 & -25.5498 &  -5.5498 \\ \hline
+0.2 & -63.2585 & -53.2585 & -43.2585 & -23.2585 \\ \hline
+\end{tabular}
+\caption{Ermittelten Werte für den Excess-Error in dB beim NLMS}
+\end{center}
+\end{table}
+
+Wie bereits erkl"art nimmt der Excesserror bei einem kleinerem $\mu$ ab. Bei einer kleineren Eingangsvarianz
+ist der Excesserror auch kleiner. Da beim NLMS das effektive $\mu$ verkleinert wird, ist bei dieser Variante des
+LMS der Excesserror etwas geringer.
