@@ -11,7 +11,7 @@ M = 30;
 
 
 for NORM = 0:1
-    for mu = [0.001, 0.01, 1]
+    for mu = [0.0001, 0.001, 0.01, 1]
 
         if NORM == 0
             switch(mu)
