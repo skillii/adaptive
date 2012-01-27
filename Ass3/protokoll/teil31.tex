@@ -2,3 +2,249 @@
 
 \paragraph{a)}
 
+Die Autokorrelationsfaktoren ergeben sich wie folgt:
+
+Dabei verschwindet $E\{w[n]u[n-k]\}$ f"ur $k>0$, da das weisse Rauschen unkorreliert mit $u[n-k]$ f"ur $k>0$ ist!
+
+\begin{align}
+r_{uu}[k] &= E\{u[n]u[n-k]\}\\
+&= E\{(w[n]+u[n-1]-1/8u[n-2])((w[n-k]+u[n-1-k]-1/8u[n-2-k])\} \\
+&= E\{\underbrace{w[n]u[n-k]}_0 + \underbrace{u[n-1]u[n-k]}_{r_{uu}[k-1]} - 1/8\underbrace{u[n-2]u[n-k]}_{r_{uu}[k-2]}
+\end{align}
+
+\begin{align}
+r_{uu}[0] &= E{u^2[n]} = \sigma_u^2 = 1 \\
+r_{uu}[1] &= r_{uu}[0] - 1/8\underbrace{r_{uu}[1-2]}_{=r_{uu}[1]} = 8/9 \\
+r_{uu}[2] &=  r_{uu}[1] - 1/8r_{uu}[0] = 55/72
+\end{align}
+
+\begin{align}
+ r_{uu} &= E\{(w[n]+u[n-1]-1/8u[n-2])^2\} \\
+ &= E\{\underbrace{w^2[n]}_{\sigma_w^2}+\underbrace{w[n]u[n-1]}_{0}-1/8\underbrace{w[n]u[n-2]}_{0} \\
+ &+\underbrace{w[n]u[n-1]}_{0} + \underbrace{u^2[n-1]}_{\sigma_u^2} -1/8\underbrace{u[n-1]u[n-2]}_{r_{uu}[1]} \\
+ &-1/8\underbrace{w[n]u[n-2]}_{0} - 1/8\underbrace{u[n-1]u[n-2]}_{r_{uu}[1]} + 1/64\underbrace{u^2[n-2]}_{\sigma_u^2} \} \\
+r_{uu}[0] &= \sigma_u^2 = \sigma_w^2 + \sigma_u^2 - 2/8r_{uu}[1] + 1/64\sigma_u^2 \\
+ \Rightarrow \sigma_r &= 2/9 - 1/64 = 119/576
+\end{align}
+
+Der Noisegain $G_G$ berechnet sich wie folgt:
+
+\begin{equation}
+ G_G = \frac{\sigma_u^2}{\sigma_w^2} = 576/119
+\end{equation}
+
+\paragraph{b)}
+
+Die Jule Walker Gleichung ist wie folgt definiert:
+
+\begin{equation}
+ \underline{c}_{MSE} = R_{uu}^{-1} \cdot \begin{bmatrix} r_{uu}[1] \\ r_{uu}[2] \\ ... \\ r_{uu}[N]\end{bmatrix}
+\end{equation}
+
+f"ur N=1 ergibt sich somit f"ur $c_{MSE}$
+
+\begin{equation}
+ c_{MSE} = c_0 = \frac{1}{r_{uu}[0]} \cdot r_{uu}[1] = 8/9
+\end{equation}
+
+
+Um nun die Varianz des Fehlers $e[n]$ zu berechnen  wird wieder einfach in $E\{e^2[n]\}$ eingesetzt:
+
+\begin{align}
+ e[n] &= u[n] - u[n-1] \cdot 8/9 \\
+ &= w[n] + 1/9 u[n-1] - 1/8 u[n-2]
+\end{align}
+
+\begin{align}
+ E\{e^2[n]\} &= E\{\underbrace{w^2[n]}_{\sigma_w^2} + 1/8 \underbrace{u[n-2]w[n]}_{0} - 1/9\underbrace{w[n]u[n-1]}_{0} + 1/81\underbrace{u^2[n-1]}_{\sigma_u^2} \\
+ &- 1/72\underbrace{u[n-1]u[n-2]}_{r_{uu}[1]} - \underbrace{w[n]1/8u[n-2]}_{0} - 1/72\underbrace{u[n-1]u[n-2]}_{r_{uu}[1]}  \\
+&+ 1/64\underbrace{u^2[n-2]}_{\sigma_u^2}\} \\
+&= \sigma_w^2 + 1/81\sigma_u^2 - 1/36r_{uu}[1] + 1/64\sigma_u^2 \\
+&= 17/81
+\end{align}
+
+Der Prediction Gain $G_C$ berechnet sich wie folgt:
+
+\begin{equation}
+ G_C = \frac{\sigma_u^2}{\sigma_e^2} = 81/17
+\end{equation}
+
+
+Der verwendete lineare Predictor ist nicht optimal, da das Signal $u[n]$ von einem AR prozess
+stammt der aus Weissem Rauschen mit einem Filter 1. Ordnung erzeugt wurde. Somit reicht ein
+linearer Predictor 1. Ordnung nicht aus. 
+Am Signal $e[n]$ erkennt man auch, dass das Signal noch kein weisses rauschen ist.
+
+
+\paragraph{c)}
+
+F"ur N=1 wurde die gleiche Vorhergehensweise verwendet:
+
+\begin{equation}
+ \underline{c}_{MSE} = R_{uu}^{-1} \cdot \begin{bmatrix} r_{uu}[1] \\ r_{uu}[2] \\ ... \\ r_{uu}[N]\end{bmatrix}
+ = \begin{bmatrix} 1 & 8/9 \\ 8/9 & 1\end{bmatrix}^-1 \cdot \begin{bmatrix}8/9 \\55/72\end{bmatrix}
+ = \begin{bmatrix}1 \\ -1/8\end{bmatrix}
+\end{equation}
+
+\begin{align}
+ e[n] = u[n] - 1\cdot u[n-1] + 1/8 \cdot u[n-2] = w[n]
+\end{align}
+
+\begin{equation}
+ G_C = \frac{\sigma_u^2}{\sigma_e^2} = \frac{1}{\sigma_w^2} = \frac{576}{119}
+\end{equation}
+
+
+Der verwendete Predictor ist nun optimal, da er aus dem AR prozess wieder das weisse rauschen gewinnt.
+Eine bessere Vorhersage ist nicht mehr m"oglich, da weisses Rauschen ja nicht vorherhersehbar ist.
+
+\paragraph{d)}
+
+N=1: der Prediction Error filter besitzt folgende Differenzengleichung:
+\begin{equation}
+ e[n] = u[n] - 8/9 u[n-1]
+\end{equation}
+
+Somit ergibt sich f"ur die "Ubertragungsfunktion:
+
+\begin{equation}
+ H_e(z) = 1-8/9z^{-1}
+\end{equation}
+
+F"ur $S(z)$ wird einfach das Inverse von $H_e(z)$ ermittelt:
+
+\begin{equation}
+ S(z) = \frac{1}{1-8/9z^{-1}}
+\end{equation}
+
+Um den Noisegain zu ermitteln wird das Quadrat der Norm der Impulsantwort des Filters $S(z)$ ermittelt:
+
+\begin{equation}
+ G_s = ||g_s[n]||^2 = \sum^{\inf}_{i=0} (8/9)^{2n} = \frac{1}{1-64/81} = \frac{81}{17}
+\end{equation}
+
+
+Da es sich bei dem Input des Filters S(z) um kein weisses Rauschen handelt, ist keine Berechnung
+von $\sigma_{\hat{u}}^2$ m"oglich. ($e[n]$ ist kein weisses Rauschen!)
+
+
+N=2: der Prediction Error filter besitzt folgende Differenzengleichung:
+\begin{equation}
+ e[n] = u[n] - u[n-1] - u[n-1] + 1/8 \cdot u[n-2]
+\end{equation}
+Somit ergibt sich f"ur die "Ubertragungsfunktion:
+\begin{equation}
+ H_e(z) = 1-z^{-1} + 1/8z^{-2}
+\end{equation}
+
+F"ur $S(z)$ wird einfach das Inverse von $H_e(z)$ ermittelt:
+
+\begin{equation}
+ S(z) = \frac{1}{1-z^{-1} + 1/8z^{-2}}
+\end{equation}
+
+
+F"ur die Ermittelung des Noisegains wurde die Tatsache ausgenutzt, dass der Filter $S(z)$ genau
+das Inverse von $H_e(z)$ darstellt. Der Noisegain von $H_e(z)$ wurde bereits in Aufgabe 3.1.a) ermittelt.
+
+Dadurch ergibt sich nun folgender Noisegain:
+
+\begin{equation}
+ G_s = \frac{576}{119}
+\end{equation}
+
+Da bei N=1 das Eingangssignal des Filters $S(z)$ weisses Rauschen ist, ist eine Berechnung von 
+$\sigma_{\hat{u}}^2$ mittels $G_s$ m"oglich.
+
+
+
+\paragraph{e)}
+
+Um das Signal $\hat{u}[n]$ verwenden wir zun"achst eine Darstellung im Z-Bereich. Weiters 
+verwenden wir auch die Tatsache, dass f"ur die Ermittelung von $S(z)$ das Inverse des Prediction-error-filters
+verwendet wurde. Somit ist:
+\begin{equation}
+S(z) = \frac{U(z)}{E(z)} 
+\end{equation}
+
+
+\begin{align}
+\hat{U}[n] &= \hat{E}(z) \cdot S(z)\\
+ &= (E(z) + Q(z)) \cdot g \cdot S(z) \\
+ &= (E(z) + Q(z)) \cdot g \cdot \frac{U(z)}{E(z)}  \\
+ &= (U(z) + Q(z) \cdot S(z)) \cdot g
+\end{align}
+
+Wieder in den Zeitbereich zur"ucktransformiert ergibt das:
+
+\begin{equation}
+ \hat{u}[n] = g \cdot u[n] + g \cdot q[n] * s[n]
+\end{equation}
+
+\begin{equation}
+ r[n] = \hat{u}[n] - u[n] = (1-g)u[n] + g \cdot q[n] * s[n]
+\end{equation}
+
+\begin{align}
+ E\{r^2[n]\} &= E\{(1-g)^2 u^2[n] + \underbrace{2(1-g)u[n]g\cdot q[n] * s[n]}_{=0, da unkorreliert} + \underbrace{(g \cdot q[n]*s[n])^2}_{g^2v\sigma_q^2v||s[n]||^2}\} \\
+ &= (1-g)^2 \cdot \sigma_u^2 + g^2\sigma_q^2 ||s[n]||^2 \\
+ &= (1-g)^2 \cdot \sigma_u^2 + g^2\sigma_q^2 G_c
+\end{align}
+
+
+\begin{equation}
+ \sigma_q^2 = \frac{\sigma_e^2}{2^{2R}-1} = \sigma_u^2/G_c \cdot \frac{1}{2^{2R}-1}
+\end{equation}
+
+
+\begin{equation}
+ g = \frac{\sigma_e^2}{\sigma_e^2 + \sigma_q^2} = \frac{\sigma_u^2/G_C}{\sigma_u^2/G_C + \sigma_u^2/G_c\frac{1}{2^{2R}-1}}
+ = \frac{1}{1+\frac{1}{2^{2R}-1}} = \frac{2^{2R} - 1}{2^{2R}}
+\end{equation}
+
+\begin{align}
+ \sigma_r^2 &= [(\frac{2^{2R} - 1}{2^{2R}} - 1)^2 + \frac{(2^{2R} - 1)^2}{2^{4R}} \frac{1}{G_c} \frac{G_c}{2^{2R} - 1}]\sigma_u^2 \\
+ &= [(\frac{-1}{2^{2R}})^2 +  \frac{2^{2R} - 1}{2^{4R}}]\sigma_u^2 \\
+ &= \frac{\sigma_u^2}{2^{2R}}
+\end{align}
+
+
+\paragraph{f)}
+Bei einer Bitrate von 1 Bit / Sample ergibt sich nun folgende Varianz von $r[n]$ bei N=1 und N=2:
+
+\begin{equation}
+ \sigma_r^2 = \frac{\sigma_u^2}{4}
+\end{equation}
+
+Nun wird Die Varianz von $r[n]$ bei direkter Codierung berechnet.
+Um die Varianz von $r[n]$ zu berechnen wurde ein formel aus der Signalverarbeitungs-VO f"ur den SNR
+bei einer quantisierung verwendet:
+
+\begin{equation}
+ SNR = \frac{\sigma_u^2}{\sigma_q^2} = 2^2 = 4
+\end{equation}
+Somit ergit sich f"ur $\sigma_q^2$:
+\begin{equation}
+ \sigma_q^2 = \frac{\sigma_u^2}{4}
+\end{equation}
+
+\begin{equation}
+ r[n] = \hat{u}[n] - u[n] = q[n]
+\end{equation}
+
+\begin{equation}
+ \sigma_r^2 = \sigma_q^2 = \frac{\sigma_u^2}{4}
+\end{equation}
+
+Somit ergibt sich f"ur direkte Codierung und linear Predictive Coding der Die gleiche varianz
+des Rekonstruktionsfehlers. => kein Gain bei der Verwendung von Prediction!
+
+
+
+
+
+
+
+
+
+
